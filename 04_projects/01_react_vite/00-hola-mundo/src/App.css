@@ -4,6 +4,12 @@
   gap: 8px
 }
 
+.tw-followCard-listContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem
+}
+
 .tw-followCard {
   display: flex;
   align-items: center;

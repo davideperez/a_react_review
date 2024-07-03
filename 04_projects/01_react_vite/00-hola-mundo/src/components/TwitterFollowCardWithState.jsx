@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import './App.css'
 import PropTypes from 'prop-types'
+import '../App.css'
 
 TwitterFollowCardWithState.propTypes = {
-  formatUserName: PropTypes.string.isRequired,
+  formatUserName: PropTypes.func.isRequired,
   userName: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   initialIsFollowing: PropTypes.bool.isRequired,
