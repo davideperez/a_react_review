@@ -2,6 +2,7 @@ import { TwitterFollowCardWithBool } from './TwitterFollowCardWithBool'
 import { TwitterFollowCardWithState } from './TwitterFollowCardWithState'
 import { TwitterFollowCardWithChildren } from './TwitterFollowCardWithChildren'
 import { TwitterFollowCardVacio } from './TwitterFollowCardVacio'
+import { useState } from 'react'
 
 export default function App () {
   // 01
@@ -20,30 +21,35 @@ export default function App () {
   // 2. Por temas de optimizacion puede que el componente se re-renderize sin necesidad.
   // 3. Termina haciendo mas complejo entender que info le esta llegando a nuestro componente (por estar desacoplada la data )
   const midudev = { 
-    isFollowing: true, 
+    initialIsFollowing: true, 
     formatUserName: myFormatUserNameFunction, 
     userName: 'midudev',
     name:'Miguel Angel Durán'
   }
 
+  //04 
+  const [isFollowing, setIsFollowing] = useState(false)
+  console.log('[App]: render of isFollowing:', isFollowing)
+
   return (
     <>
-      <div>
+      <div className='tw-followCard-container'>
         <TwitterFollowCardWithBool
           isFollowing={false}
           formatUserName={myFormatUserNameFunction}
           userName='react'
           name='React'
-          />
+        />
         <TwitterFollowCardWithState
           {...midudev}
         />
         <TwitterFollowCardWithState
-          isFollowing
+          initialIsFollowing={isFollowing}
           formatUserName={myFormatUserNameFunction}
           userName='cplusplus'
           name='C++'
-          />
+        />
+        <button onClick={() => setIsFollowing(!isFollowing)}>Cambiar valor de IsFollowing de C++</button>
         <TwitterFollowCardWithChildren
           isFollowing
           formatUserName={myFormatUserNameFunction}
@@ -51,6 +57,7 @@ export default function App () {
           > 
             NodeJS
         </TwitterFollowCardWithChildren>
+        <TwitterFollowCardVacio />
       </div>
     </>
   )

@@ -6,10 +6,10 @@ TwitterFollowCardWithState.propTypes = {
   formatUserName: PropTypes.string.isRequired,
   userName: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  isFollowing: PropTypes.bool.isRequired,
+  initialIsFollowing: PropTypes.bool.isRequired,
 };
 
-export function TwitterFollowCardWithState ({formatUserName, userName='Unknown' , name='Unknown'}) {
+export function TwitterFollowCardWithState ({formatUserName, userName='Unknown' , name='Unknown', initialIsFollowing}) {
   /* 
     // 01 el useState
     
@@ -22,7 +22,23 @@ export function TwitterFollowCardWithState ({formatUserName, userName='Unknown' 
     const [isFollowing, setIsFollowing] = useState(false)
 
   */
-  const [isFollowing, setIsFollowing] = useState(false)
+
+  /* 
+    //02 Usar Props para inicializar el estado
+    // En lugar de inicializar el estado desde dentro del componente, es bueno cuidar
+    // si nuestro escenario requiere que ese estado sea inicializado desde afuera por una prop. 
+    // A esta prop es buena practica llamarla poniendo "initial" en su nombre.
+
+    // No hacer:
+    const [isFollowing, setIsFollowing] = useState(false)
+
+    //Si hacer:
+
+    const [isFollowing, setIsFollowing] = useState(initialIsFollowing)
+  
+  */
+
+  const [isFollowing, setIsFollowing] = useState(initialIsFollowing)
 
   const text = isFollowing ? 'Siguiendo' : 'Seguir'
   const buttonClassName = isFollowing ? 'tw-followCard-button is-following' : 'tw-followCard-button'
@@ -45,7 +61,10 @@ export function TwitterFollowCardWithState ({formatUserName, userName='Unknown' 
         </div>
       </header>
       <aside>
-        <button className={buttonClassName} onClick={handleClick}>{text}</button>
+        <button className={buttonClassName} onClick={handleClick}>
+          <span className='tw-followCard-text'>{text}</span>
+          <span className='tw-followCard-stopFollow'>Dejar de seguir</span>
+        </button>
       </aside>
   </article>
   )
