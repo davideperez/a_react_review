@@ -8,6 +8,7 @@ import { changeTurn } from './logic/newTurn.js'
 import { WinnerModal } from './components/WinnerModal.jsx'
 import { Turns } from './components/Turns.jsx'
 import { TicTacToeBoard } from './components/TicTacToeBoard.jsx'
+import { saveGameToStorage, resetGameFromStorage } from './logic/storage/index.js'
 
 function App() {
   console.log('Render.')
@@ -34,8 +35,7 @@ function App() {
     setTurn(TURNS.X)
     setWinner(null )
 
-    window.localStorage.removeItem('board')
-    window.localStorage.removeItem('turn')
+    resetGameFromStorage()
   }
 
   const updateBoard = (index) => {
@@ -53,8 +53,10 @@ function App() {
     setTurn(newTurn)
 
     // 04 Guarda la partida en memoria
-    window.localStorage.setItem('board', JSON.stringify(newBoard))
-    window.localStorage.setItem('turn', newTurn)
+    saveGameToStorage({
+      board: newBoard, 
+      turn: newTurn
+    })
 
     // 05 Revisa si hay ganador
     const newWinner = checkWinner(newBoard)
