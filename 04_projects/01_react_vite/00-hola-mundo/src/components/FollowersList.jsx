@@ -4,12 +4,10 @@ import { TwitterFollowCardWithChildren } from './TwitterFollowCardWithChildren'
 import { TwitterFollowCardVacio } from './TwitterFollowCardVacio'
 import { useState } from 'react'
 
-
-
 export default function FollowersList () {
   // 01
   // Esta funcion no se ejecuta en la prop del componente, solo es pasada como parametro
-  // y luego ejecutada dentro del componente mismo. (ver componente )
+  // y luego ejecutada dentro del componente mismo (ver componente).
   const myFormatUserNameFunction = (myUserName) => `@${myUserName}`
 
   // 02
@@ -57,8 +55,8 @@ export default function FollowersList () {
           isFollowing
           formatUserName={myFormatUserNameFunction}
           userName='nodejs'
-          > 
-            NodeJS
+        > 
+          NodeJS
         </TwitterFollowCardWithChildren>
         <TwitterFollowCardVacio />
       </div>

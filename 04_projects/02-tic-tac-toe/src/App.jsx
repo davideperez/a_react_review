@@ -1,55 +1,13 @@
 import './App.css'
 import { useState } from 'react'
+import confetti from 'canvas-confetti'
 
-const TURNS = {
-  X: 'x',
-  O: 'o'
-}
-
-const Square = ({children, updateBoard, isSelected, index}) => {
-  const className = `square ${isSelected ? 'is-selected' : ''}`
-
-  const handleClick = () => {
-    updateBoard(index)
-  }
-
-  return (
-    <div 
-      className={className}
-      onClick={handleClick}
-    >
-      {children}
-    </div>
-   )
-}
-
-const WINNER_COMBOS = [
-  [0, 1, 2],
-  [3, 4, 5],
-  [6, 7, 8],
-  [0, 3, 6],
-  [1, 4, 7],
-  [2, 5, 8],
-  [0, 4, 8],
-  [2, 4, 6],
-]
-
-const checkWinner = (boardToCheck) => { // CUIDADO AQUI, no pasar el board del estado, sino el nuevo Board.
-  // revisamos todas las combinaciones ganadoras
-  // para ver si x u o gano.
-  for ( const combo of WINNER_COMBOS) {
-    const [a, b, c] = combo
-    if (
-      boardToCheck[a] &&
-      boardToCheck[a] === boardToCheck[b] &&
-      boardToCheck [a] === boardToCheck[c]
-    ) {
-      return boardToCheck[a]
-    }
-  }
-  // si no hay ganador
-  return null
-}
+import { TURNS } from './constants'
+import { checkWinner, checkEndGame } from './logic/board.js'
+import { changeTurn } from './logic/newTurn.js'
+import { WinnerModal } from './components/WinnerModal.jsx'
+import { Turns } from './components/Turns.jsx'
+import { TicTacToeBoard } from './components/TicTacToeBoard.jsx'
 
 function App() {
   const [board, setBoard] = useState(Array(9).fill(null))
@@ -67,10 +25,6 @@ function App() {
     setWinner(null )
   }
 
-  const checkEndGame = (boardToCheck) => {
-    return boardToCheck.every(square => square !== null)
-  }
-
   const updateBoard = (index) => {
     // No actualizar el board si ya hay una valor en la posicion.
     // O hay un ganador.
@@ -84,12 +38,14 @@ function App() {
     setBoard(newBoard)
 
     // Setea cual es el turno actual. Cambia el turno.
-    const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X
+    const newTurn = changeTurn(turn)
     setTurn(newTurn)
 
     // revisa si hay ganador
-    const newWinner = checkWinner(newBoard) // CUIDADO AQUI, no pasar el board del estado, sino el nuevo Board.
+    const newWinner = checkWinner(newBoard)
+     // CUIDADO AQUI, no pasar el board del estado, sino el nuevo Board.
     if (newWinner) {
+      confetti()
       setWinner(newWinner)
     } else if (checkEndGame(newBoard)) {
       setWinner(false) // empate
@@ -100,49 +56,15 @@ function App() {
    <main className='board'>
       <h1>Tic Tac Toe</h1>
       <button onClick={handleClickResetGame}>Reset</button>
-      <section className='game'>
-        {
-          board.map((square , index) => {
-            return (
-              <Square 
-                key={index} 
-                index={index}
-                updateBoard={updateBoard} 
-              > 
-                {square}
-              </Square>
-            )
-          }) 
-        }
-      </section>
-
-      <section className='turn'>
-        <Square isSelected={turn === TURNS.X}>{TURNS.X}</Square>
-        <Square isSelected={turn === TURNS.O}>{TURNS.O}</Square>
-      </section>
-      {
-        winner !== null && (
-          <section className='winner'>
-            <div className='text'>
-              <h2>
-                {
-                  winner === false
-                    ? 'Empate'
-                    : 'Ganó: '
-                }
-              </h2>
-              <header className='win'>
-                {
-                  winner && <Square>{winner}</Square>
-                }
-              </header>
-              <footer>
-                <button onClick={handleClickResetGame}>Empezar de nuevo</button>
-              </footer>
-            </div>
-          </section>
-        )
-      }
+      <TicTacToeBoard 
+        board={board}
+        updateBoard={updateBoard}
+      />
+      <Turns turn={turn}/>
+      <WinnerModal 
+        winner={winner}
+        resetGame={handleClickResetGame}
+      />
    </main>
 
   )
