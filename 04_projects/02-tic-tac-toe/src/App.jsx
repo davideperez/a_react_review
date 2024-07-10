@@ -10,10 +10,20 @@ import { Turns } from './components/Turns.jsx'
 import { TicTacToeBoard } from './components/TicTacToeBoard.jsx'
 
 function App() {
-  const [board, setBoard] = useState(Array(9).fill(null))
+  console.log('Render.')
+
+  const [board, setBoard] = useState(() => {
+    console.log('Inicializa el estado. Solo ocurre una vez.')
+    const boardFromStorage = window.localStorage.getItem('board')
+    return boardFromStorage ? JSON.parse(boardFromStorage) : Array(9).fill(null)
+    }
+  )
 
   // Estado para saber de quien es el turno
-  const [turn, setTurn] = useState(TURNS.X)
+  const [turn, setTurn] = useState(() => {
+    const turnFromStorage = window.localStorage.getItem('turn')
+    return turnFromStorage ?? TURNS.X
+  })
 
   //Estado para saber quien es el ganador
   // null es que no hay ganador, false es que hay un empate.
@@ -23,27 +33,32 @@ function App() {
     setBoard(Array(9).fill(null))
     setTurn(TURNS.X)
     setWinner(null )
+
+    window.localStorage.removeItem('board')
+    window.localStorage.removeItem('turn')
   }
 
   const updateBoard = (index) => {
-    // No actualizar el board si ya hay una valor en la posicion.
-    // O hay un ganador.
+    // 01 Valida que el casillero no este pintado y que no haya winner.
     if (board[index] || winner ) return
     
-    //Identifica el cuadrado clickeado y lo pinta con el valor del turno actual.
-    // Crea un nuevo board que varia del anterior en 1 valor: el recientemente clickeado.
+
+    // 02 Pinta el casillero clickeado
     const newBoard = [...board]
     newBoard[index] = turn // x u o
-    //Pinta el nuevo board
     setBoard(newBoard)
 
-    // Setea cual es el turno actual. Cambia el turno.
+    // 03 Cambia el turno
     const newTurn = changeTurn(turn)
     setTurn(newTurn)
 
-    // revisa si hay ganador
+    // 04 Guarda la partida en memoria
+    window.localStorage.setItem('board', JSON.stringify(newBoard))
+    window.localStorage.setItem('turn', newTurn)
+
+    // 05 Revisa si hay ganador
     const newWinner = checkWinner(newBoard)
-     // CUIDADO AQUI, no pasar el board del estado, sino el nuevo Board.
+    // CUIDADO AQUI, no pasar el board del estado, sino el nuevo Board.
     if (newWinner) {
       confetti()
       setWinner(newWinner)
