@@ -4,10 +4,10 @@ Square.propTypes = {
   children: PropTypes.node,
   updateBoard: PropTypes.func,
   isSelected: PropTypes.bool,
-  index: PropTypes.number,
-};
+  index: PropTypes.number
+}
 
-export function Square ({children, updateBoard, isSelected, index}) {
+export function Square ({ children, updateBoard, isSelected, index }) {
   const className = `square ${isSelected ? 'is-selected' : ''}`
 
   const handleClick = () => {
@@ -15,11 +15,11 @@ export function Square ({children, updateBoard, isSelected, index}) {
   }
 
   return (
-    <div 
+    <div
       className={className}
       onClick={handleClick}
     >
       {children}
     </div>
-   )
+  )
 }

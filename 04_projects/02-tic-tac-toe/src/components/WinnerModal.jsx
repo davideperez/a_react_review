@@ -1,7 +1,6 @@
 import { Square } from './Square'
 
-export const WinnerModal = ({winner, resetGame}) => {
-
+export const WinnerModal = ({ winner, resetGame }) => {
   if (winner === null) return null
 
   const winnerText = winner === false ? 'Draw' : 'You won!:'
@@ -21,7 +20,7 @@ export const WinnerModal = ({winner, resetGame}) => {
   )
 }
 
-/* 
+/*
   // This was the design of the component before simplifying it.
       <>
       {
@@ -49,4 +48,3 @@ export const WinnerModal = ({winner, resetGame}) => {
       }
     </>
 */
-
