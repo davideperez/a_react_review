@@ -129,3 +129,11 @@ body {
   cursor: pointer;
   font-size: 48px;
 }
+
+.marginTop {
+  color: red;
+}
+
+body .no-cursor {
+  cursor: none;
+}

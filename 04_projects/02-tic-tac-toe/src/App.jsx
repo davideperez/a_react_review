@@ -1,5 +1,5 @@
 import './App.css'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import confetti from 'canvas-confetti'
 
 import { TURNS } from './constants'
@@ -25,9 +25,6 @@ function App () {
     return turnFromStorage ?? TURNS.X
   })
 
-  useEffect(() => {
-    console.log('UseEffect')
-  })
   // Estado para saber quien es el ganador
   // null es que no hay ganador, false es que hay un empate.
   const [winner, setWinner] = useState(null)
@@ -84,7 +81,6 @@ function App () {
         resetGame={handleClickResetGame}
       />
     </main>
-
   )
 }
 

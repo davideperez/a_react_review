@@ -1,27 +1,39 @@
 import { useEffect, useState } from 'react'
 
-function App () {
+function FollowMouse () {
   const [enabled, setEnabled] = useState(false)
   const [position, setPosition] = useState({ x: 0, y: 0 })
-
+  // pointer move
   useEffect(() => {
-    console.log('Effect.', { enabled })
+    console.log('🪄 Hi from useEffect first line.', { enabled })
 
+    //
     const handleMove = (event) => {
+      console.log('Hi from handleMove function. This is the event parameter: ', event)
       const { clientX, clientY } = event
 
-      console.log('handleMove: ', { clientX, clientY })
+      // console.log('handleMove: ', { clientX, clientY })
       setPosition({ x: clientX, y: clientY })
     }
 
+    // Suscribe un listener al window, que si enabled es true, permite el moviemiento del cursor.
     if (enabled) {
       window.addEventListener('pointermove', handleMove)
     }
 
-    // cleanup
+    // Cleanup
     return () => {
-      console.log('cleanup')
+      console.log('🧹 Hi from the useEffect\'s cleanup function.')
       window.removeEventListener('pointermove', handleMove)
+    }
+  }, [enabled])
+
+  // Change body Classname
+  useEffect(() => {
+    document.body.classList.toggle('no-cursor', enabled)
+
+    return () => {
+      document.body.classList.remove('no-cursor')
     }
   }, [enabled])
 
@@ -52,6 +64,25 @@ function App () {
         {buttonText} Seguir Puntero
       </button>
     </main>
+  )
+}
+
+function App () {
+  const [isMounted, setIsMounted] = useState(true)
+
+  const handleMountButton = () => {
+    setIsMounted(!isMounted)
+  }
+  return (
+    <>
+      {isMounted && <FollowMouse />}
+      <button
+        onClick={handleMountButton}
+        className='marginTop'
+      >
+        Mount FollowMouse
+      </button>
+    </>
   )
 }
 
