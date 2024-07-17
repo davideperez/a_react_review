@@ -13,9 +13,10 @@ Imagen random: <https://cataas.com/cat/says/hello>
 
 ## Desafíos
 
+- Inicializacion de un proyecto de React desde 0. Sin templates.
+- Renderizado condicional.
 - Fetch a una API
 - Manejo de 2 estados donde 1 depende del otro.
 - Hacer un custom hook.
 - Testing end to end.
 - Buenas prácticas.
-- Inicializacion de un proyecto de React desde 0. Sin templates.
