@@ -3,6 +3,7 @@ import '../styles/button.css'
 import '../styles/spinner.css'
 import { useCatImage } from '../hooks/useCatImage'
 import { useCatFact } from '../hooks/useCatFact'
+import { Otro } from '../components/Otro'
 
 export function App () {
   const { fact, refreshFact } = useCatFact()
@@ -22,12 +23,13 @@ export function App () {
         {fact && <p className='fact'>{fact}</p>}
         {
           isLoading
-            ? <span class='loader' />
+            ? <span className='loader' />
             : <img src={`${imageUrl}`} alt={`Image extracted using the three first words of ${fact}`} />
         }
         {error && <h2>{error}</h2>}
       </div>
       <button className='button-53' onClick={handleClick}>Actualizar</button>
+      {/* <Otro /> */}
     </main>
   )
 }
