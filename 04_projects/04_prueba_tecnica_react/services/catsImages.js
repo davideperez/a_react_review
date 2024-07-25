@@ -11,7 +11,7 @@ export function getCatImage (fact) {
     json: true
   })
 
-  return fetch(`${CATAAS_IMAGE_URL}/${threeFirstWords}?` + params, { signal: AbortSignal.timeout(3000) })
+  return fetch(`${CATAAS_IMAGE_URL}/${threeFirstWords}?` + params, { signal: AbortSignal.timeout(4000) })
     .then(res => {
       if (!res.ok) throw new Error('La gente de la API de imagenes de gatitos no responde.')
       return res.url.replace('&json=true', '')

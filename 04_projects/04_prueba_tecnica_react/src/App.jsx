@@ -1,50 +1,15 @@
-import { useEffect, useState } from 'react'
 import './App.css'
 import '../styles/button.css'
 import '../styles/spinner.css'
-import { getRandomFact } from '../services/catsFacts'
-import { getCatImage, getCatImage2 } from '../services/catsImages'
-
-// import Error from '../components/Error'
+import { useCatImage } from '../hooks/useCatImage'
+import { useCatFact } from '../hooks/useCatFact'
 
 export function App () {
-  const [fact, setFact] = useState('')
-  const [imageUrl, setImageUrl] = useState('')
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState('')
+  const { fact, refreshFact } = useCatFact()
+  const { imageUrl, isLoading, error } = useCatImage({ fact })
 
-  // Fetches the random fact API.
-  useEffect(() => {
-    getRandomFact().then(newFact => {
-      setFact(newFact)
-    })
-  }, [])
-
-  // Fetches the Cat Images API
-  useEffect(() => {
-    setIsLoading(true)
-    if (!fact) return
-
-    getCatImage(fact).then(newImageUrl => {
-      setImageUrl(newImageUrl)
-    }).catch((err) => {
-      getCatImage2(fact).then(newImageUrl => {
-        console.log('🚀 ~ getCatImage ~ newImageUrl:', newImageUrl)
-        console.log('This is err: ', err)
-        setImageUrl(newImageUrl)
-      }).catch(() => {
-        setError('Error en la peticion getCatImage2')
-      })
-    }).finally(() => {
-      setIsLoading(false)
-    })
-  }, [fact])
-
-  const handleClick = async () => {
-    const newFact = await getRandomFact()
-    setFact(newFact)
-    const newImageUrl = await getCatImage2(fact)
-    setImageUrl(newImageUrl)
+  const handleClick = () => {
+    refreshFact()
   }
   return (
     <main>
