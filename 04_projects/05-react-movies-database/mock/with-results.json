@@ -1,0 +1,76 @@
+{
+  "Search": [
+    {
+      "Title": "Quentin Tarantino: 20 Years of Filmmaking",
+      "Year": "2012",
+      "imdbID": "tt6021960",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BYTZlMjNhOGUtM2NiMy00MDlkLTk2MjMtMjg2Y2JiN2EzZTVjXkEyXkFqcGdeQXVyNDY2MTk1ODk@._V1_SX300.jpg"
+    },
+    {
+      "Title": "The Moviemakers: Tarantino",
+      "Year": "2023",
+      "imdbID": "tt28220932",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BYTJmZDIxMzgtMWE1My00YzA5LTlkMjAtODFhNTI0ZDlhMmZmXkEyXkFqcGdeQXVyNjc1OTk4NjA@._V1_SX300.jpg"
+    },
+    {
+      "Title": "Robert Tarantino",
+      "Year": "2013",
+      "imdbID": "tt2740822",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BODVkYjAxODItMGY2My00MmVhLTgzYTItYzhiZjMzM2Y1ZGFhXkEyXkFqcGdeQXVyMTAwNjQyMg@@._V1_SX300.jpg"
+    },
+    {
+      "Title": "Tu mataste a Tarantino",
+      "Year": "2003",
+      "imdbID": "tt0405406",
+      "Type": "movie",
+      "Poster": "N/A"
+    },
+    {
+      "Title": "Killing Tarantino",
+      "Year": "2009",
+      "imdbID": "tt1520977",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BZDViNTQwMjMtODAwOC00ZmRiLWJjMjMtYmRhMzFlN2M0MWY4XkEyXkFqcGdeQXVyMTI4OTAyNTkw._V1_SX300.jpg"
+    },
+    {
+      "Title": "Tarantino, le disciple de Hong-Kong",
+      "Year": "2011",
+      "imdbID": "tt1961528",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BOTVkNGY2MjgtNjE5NC00MjAxLWIwNmQtMDNlYjk5NTA4MzUzL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyNDQyOTg0Mg@@._V1_SX300.jpg"
+    },
+    {
+      "Title": "Tarantino: From Below",
+      "Year": "2012",
+      "imdbID": "tt7958294",
+      "Type": "movie",
+      "Poster": "N/A"
+    },
+    {
+      "Title": "A Christmas Eve Conversation with Quentin Tarantino & Paul Thomas Anderson",
+      "Year": "2015",
+      "imdbID": "tt5299374",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BNDI4NjZjZGItYmE0OC00ZDYyLWI1MTEtOTE3YWQzMzU4ODZjXkEyXkFqcGdeQXVyMjQ0NzE0MQ@@._V1_SX300.jpg"
+    },
+    {
+      "Title": "A Conversation with Quentin Tarantino & Scott Spiegel",
+      "Year": "2004",
+      "imdbID": "tt0823602",
+      "Type": "movie",
+      "Poster": "N/A"
+    },
+    {
+      "Title": "A Conversation with Enzo Castellari and Quentin Tarantino",
+      "Year": "2008",
+      "imdbID": "tt1286727",
+      "Type": "movie",
+      "Poster": "N/A"
+    }
+  ],
+  "totalResults": "32",
+  "Response": "True"
+}
