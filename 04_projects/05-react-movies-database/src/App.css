@@ -37,3 +37,8 @@ img {
   height: auto;
   ;
 }
+
+.error {
+  color: yellow;
+  font-weight: 700;
+}

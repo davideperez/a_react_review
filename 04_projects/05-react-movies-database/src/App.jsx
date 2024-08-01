@@ -1,37 +1,49 @@
-// import { useRef } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import { useMovies } from '../hooks/useMovies'
 import { Movies } from './components/Movies'
 
 function App () {
   const { movies: mappedMovies } = useMovies()
-  // const inputRef = useRef()
+  const [query, setQuery] = useState('')
+  const [error, setError] = useState(null)
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    // The current is the element:
-    //  const inputElement = inputRef.current
-    //  const inputValue = inputElement.value
-    // const inputValue = inputRef.current.value
-    // console.log(inputValue)
-
-    console.log('FormData Puro: ', new window.FormData(event.target))
-    // midu
-    const fields = Object.fromEntries(new window.FormData(event.target))
-    // const fields = Object.fromEntries(new window.FormData(event.target))
-    // const query = fields.get('query')
-    console.log('FormData con Object.fromEntries()', fields)
+    console.log(query)
   }
+  const handleChange = (event) => {
+    setQuery(event.target.value)
+    // Se podria validar aqui.
+  }
+
+  // Se puede validar aqui con useEffect tambien
+  useEffect(() => {
+    if (query === '') {
+      setError('Can\'t search for an empty movie.')
+      return
+    }
+
+    if (query.match(/^\d+$/)) {
+      setError('Can\'t search a movie with a number.')
+      return
+    }
+
+    if (query.length < 3) {
+      setError('Search should have a minimum of 3 characters.')
+      return
+    }
+
+    setError(null)
+  }, [query])
 
   return (
     <div className='page'>
       <header>
         <h1>Movies Database</h1>
         <form className='form' onSubmit={handleSubmit}>
-          <input name='query' placeholder='Avengers, The Matrix, Star Wars... ' />
-          <input name='aaaaa' placeholder='Avengers, The Matrix, Star Wars... ' />
-          <input name='ccccc' placeholder='Avengers, The Matrix, Star Wars... ' />
-          <input name='ccccc' placeholder='Avengers, The Matrix, Star Wars... ' />
+          <input onChange={handleChange} value={query} name='query' placeholder='Avengers, The Matrix, Star Wars... ' />
+          {error && <p className='error'>{error}</p>}
           <button type='submit'>Search</button>
         </form>
       </header>
