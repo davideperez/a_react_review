@@ -13,29 +13,26 @@ function App () {
     console.log(query)
   }
   const handleChange = (event) => {
-    setQuery(event.target.value)
-    // Se podria validar aqui.
-  }
+    const newQuery = event.target.value
+    setQuery(newQuery)
 
-  // Se puede validar aqui con useEffect tambien
-  useEffect(() => {
-    if (query === '') {
+    if (newQuery === '') {
       setError('Can\'t search for an empty movie.')
       return
     }
 
-    if (query.match(/^\d+$/)) {
+    if (newQuery.match(/^\d+$/)) {
       setError('Can\'t search a movie with a number.')
       return
     }
 
-    if (query.length < 3) {
+    if (newQuery.length < 3) {
       setError('Search should have a minimum of 3 characters.')
       return
     }
 
     setError(null)
-  }, [query])
+  }
 
   return (
     <div className='page'>
