@@ -8,6 +8,8 @@ export function useCatImage ({ fact }) {
   const [error, setError] = useState('')
 
   useEffect(() => {
+    // This useEffect is not to be taken as a good example, because..
+    // ..it could cause infinit loops. In fact it was a naive solution i've tried.
     setIsLoading(true)
     if (!fact) return
 

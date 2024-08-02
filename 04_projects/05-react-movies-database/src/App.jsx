@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import './App.css'
 import { useMovies } from '../hooks/useMovies'
 import { Movies } from './components/Movies'
@@ -6,8 +6,13 @@ import { Movies } from './components/Movies'
 function useSearch () {
   const [search, updateSearch] = useState('')
   const [error, setError] = useState(null)
+  const isFirstInput = useRef(true)
 
   useEffect(() => {
+    if (isFirstInput.current) {
+      isFirstInput.current = search === ''
+      return
+    }
     // This are validations
     if (search === '') {
       setError('Can\'t search for an empty movie.')
@@ -48,7 +53,7 @@ function App () {
               border: '1px solid transparent',
               borderColor: error ? 'red' : 'transparent'
             }}
-            onChange={handleChange} value={search} name='query' placeholder='Avengers, The Matrix, Star Wars... '
+            onChange={handleChange} value={search} name='query' placeholder='Avengers, Star Wars... '
           />
           {error && <p className='error'>{error}</p>}
           <button type='submit'>Search</button>

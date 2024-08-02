@@ -3,13 +3,14 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  max-width: 900px;
 }
 
 main {
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding: 0px;
+  width: 100% ;
 }
 
 form {
@@ -19,23 +20,26 @@ form {
   align-items: center;
 }
 
-ul {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 2rem;
+.movies {
+  list-style: none;
+  margin: 0;
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 32px;
 }
 
-li {
-  width: 300px;
-  list-style-type: none;
+.movie {
+  text-align: center;
 }
 
-img {
-  width: 300px;
-  height: auto;
-  ;
+.movie h3, .movie p {
+  margin: 0;
+}
+
+.movie img {
+  border-radius: 8px;
+  margin-top: 8px   ;
 }
 
 .error {
