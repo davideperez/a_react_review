@@ -3,43 +3,53 @@ import './App.css'
 import { useMovies } from '../hooks/useMovies'
 import { Movies } from './components/Movies'
 
-function App () {
-  const { movies: mappedMovies } = useMovies()
-  const [query, setQuery] = useState('')
+function useSearch () {
+  const [search, updateSearch] = useState('')
   const [error, setError] = useState(null)
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    console.log(query)
-  }
-  const handleChange = (event) => {
-    const newQuery = event.target.value
-    setQuery(newQuery)
-
-    if (newQuery === '') {
+  useEffect(() => {
+    // This are validations
+    if (search === '') {
       setError('Can\'t search for an empty movie.')
       return
     }
-
-    if (newQuery.match(/^\d+$/)) {
+    if (search.match(/^\d+$/)) {
       setError('Can\'t search a movie with a number.')
       return
     }
-
-    if (newQuery.length < 3) {
+    if (search.length < 3) {
       setError('Search should have a minimum of 3 characters.')
       return
     }
-
     setError(null)
-  }
+  }, [search])
+  return { search, updateSearch, error }
+}
 
+function App () {
+  const { movies: mappedMovies } = useMovies()
+  const { search, updateSearch, error } = useSearch()
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+  }
+  const handleChange = (event) => {
+    // const newQuery = event.target.value
+    // This is a prevalidation
+    updateSearch(event.target.value)
+  }
   return (
     <div className='page'>
       <header>
         <h1>Movies Database</h1>
         <form className='form' onSubmit={handleSubmit}>
-          <input onChange={handleChange} value={query} name='query' placeholder='Avengers, The Matrix, Star Wars... ' />
+          <input
+            style={{
+              border: '1px solid transparent',
+              borderColor: error ? 'red' : 'transparent'
+            }}
+            onChange={handleChange} value={search} name='query' placeholder='Avengers, The Matrix, Star Wars... '
+          />
           {error && <p className='error'>{error}</p>}
           <button type='submit'>Search</button>
         </form>
