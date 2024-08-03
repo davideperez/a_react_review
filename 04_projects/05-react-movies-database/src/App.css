@@ -46,3 +46,7 @@ form {
   color: yellow;
   font-weight: 700;
 }
+
+.loading {
+  margin-bottom: 8rem;
+}

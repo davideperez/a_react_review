@@ -1,4 +1,4 @@
-const API_KEY = '78f9892e'
+const API_KEY = import.meta.env.VITE_API_KEY
 
 export const searchMovies = async (search) => {
   // If the search is empty we don't event attempt to do the fetching.
