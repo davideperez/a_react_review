@@ -32,17 +32,20 @@ function useSearch () {
 }
 
 function App () {
-  const { movies: mappedMovies } = useMovies()
   const { search, updateSearch, error } = useSearch()
+  const { movies: mappedMovies, getMovies } = useMovies({ search })
 
   const handleSubmit = (event) => {
     event.preventDefault()
+    getMovies()
   }
+
   const handleChange = (event) => {
     // const newQuery = event.target.value
     // This is a prevalidation
     updateSearch(event.target.value)
   }
+
   return (
     <div className='page'>
       <header>
