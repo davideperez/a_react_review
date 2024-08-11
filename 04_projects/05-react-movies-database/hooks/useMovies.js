@@ -1,18 +1,16 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useMemo, useCallback } from 'react'
 import { searchMovies } from '../services/movies'
-// import withResults from '../mock/with-results.json'
 
-// let previousSearch = '' // Bad practice. Doing this, the useMovies hook..
-// ..could be used just one time. This way of implementing it is asuming..
-// ..the variable is unique.
-
-export function useMovies ({ search }) {
+export function useMovies ({ search, sort }) {
   const [movies, setMovies] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const previousSearch = useRef(search)
 
-  const getMovies = async () => {
+  // This useMemo avoids getMovies to build only when..
+  // ..a search is submitted, and no when, for example..
+  // .. a sort is done.
+  const getMovies = useCallback(async () => {
     if (search === previousSearch.current) return
     try {
       setLoading(true)
@@ -20,7 +18,7 @@ export function useMovies ({ search }) {
 
       // Updates the previousSearch ref for the next search, with the new search
       previousSearch.current = search
-      // previousSearch = search // Bad practice. This line was using the let from outside the function.
+
       // Fetches the movies required by the user
       const searchResponse = await searchMovies(search)
       setMovies(searchResponse)
@@ -30,7 +28,14 @@ export function useMovies ({ search }) {
       // Both the try and the catch will pass to the the finally
       setLoading(false)
     }
-  }
+  }, [search])
 
-  return { movies, getMovies, loading, error }
+  const sortedMovies = useMemo(() => {
+    console.log('sorting..')
+    return sort
+      ? [...movies].sort((a, b) => a.title.localeCompare(b.title))
+      : movies
+  }, [sort, movies])
+
+  return { movies: sortedMovies, getMovies, loading, error }
 }

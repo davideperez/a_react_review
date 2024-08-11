@@ -32,8 +32,14 @@ function useSearch () {
 }
 
 function App () {
+  const [sort, setSort] = useState(false)
   const { search, updateSearch, error } = useSearch()
-  const { movies: mappedMovies, getMovies, loading } = useMovies({ search })
+  const { movies: mappedMovies, getMovies, loading } = useMovies({ search, sort })
+
+  const handleSort = (event) => {
+    setSort(!sort)
+    // todo
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -45,6 +51,10 @@ function App () {
     // This is a prevalidation
     updateSearch(event.target.value)
   }
+
+  useEffect(() => {
+    console.log('Cambio el getMovies')
+  }, [getMovies])
 
   return (
     <div className='page'>
@@ -59,6 +69,7 @@ function App () {
             onChange={handleChange} value={search} name='query' placeholder='Avengers, Star Wars... '
           />
           {error && <p className='error'>{error}</p>}
+          <input type='checkbox' onChange={handleSort} checked={sort} />
           <button type='submit'>Search</button>
         </form>
       </header>
