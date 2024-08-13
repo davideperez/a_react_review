@@ -4,13 +4,14 @@ import { searchMovies } from '../services/movies'
 export function useMovies ({ search, sort }) {
   const [movies, setMovies] = useState([])
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
+  const [, setError] = useState(null)
   const previousSearch = useRef(search)
 
   // This useMemo avoids getMovies to build only when..
   // ..a search is submitted, and no when, for example..
   // .. a sort is done.
-  const getMovies = useCallback(async () => {
+  const getMovies = useCallback(async ({ search }) => {
+    console.log('Hi from getMovies, this is search: ', search)
     if (search === previousSearch.current) return
     try {
       setLoading(true)
@@ -28,14 +29,15 @@ export function useMovies ({ search, sort }) {
       // Both the try and the catch will pass to the the finally
       setLoading(false)
     }
-  }, [search])
+  }, [])
 
   const sortedMovies = useMemo(() => {
-    console.log('sorting..')
+    if (!movies) return
+    // console.log('sorting..')
     return sort
       ? [...movies].sort((a, b) => a.title.localeCompare(b.title))
       : movies
   }, [sort, movies])
 
-  return { movies: sortedMovies, getMovies, loading, error }
+  return { movies: sortedMovies, getMovies, loading }
 }

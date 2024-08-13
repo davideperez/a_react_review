@@ -13,9 +13,10 @@ main {
   width: 100% ;
 }
 
-form {
+.form {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  gap: 1rem;
   justify-content: center;
   align-items: center;
 }
