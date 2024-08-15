@@ -18,7 +18,7 @@ export function useMovies ({ search, sort }) {
       setError(null)
 
       // Updates the previousSearch ref for the next search, with the new search
-      previousSearch.current = search
+      previousSearch.curren = search
 
       // Fetches the movies required by the user
       const searchResponse = await searchMovies(search)
