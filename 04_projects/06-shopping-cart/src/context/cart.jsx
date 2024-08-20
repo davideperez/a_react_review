@@ -15,13 +15,14 @@ export function CartProvider ({ children }) {
     // Check if product is already in cart
     const productInCartIndex = cart.findIndex(item => item.id === product.id)
 
+    // Si el producto ya esta en el carrito
     if (productInCartIndex >= 0) {
       const newCart = structuredClone(cart)
       newCart[productInCartIndex].quantity += 1
       return setCart(newCart)
     }
 
-    // El producto no esta en el carrito
+    // Si el producto no esta en el carrito
     setCart(prevState => ([
       ...prevState,
       {
@@ -30,9 +31,12 @@ export function CartProvider ({ children }) {
       }
 
     ]))
-
-    // ---  Solucion 3 --- //
   }
+
+  const removeItemFromCart = product => {
+    setCart(prevState => prevState.filter(item => item.id !== product.id))
+  }
+
   const clearCart = () => {
     setCart([])
   }
@@ -42,6 +46,7 @@ export function CartProvider ({ children }) {
       value={{
         cart,
         addToCart,
+        removeItemFromCart,
         clearCart
       }}
     >

@@ -3,11 +3,14 @@ import { AddToCartIcon, RemoveFromCartIcon } from './Icons'
 import { useCart } from '../hooks/useCart'
 
 export default function Products ({ products }) {
-  const { addToCart, cart } = useCart()
+  const { addToCart, removeItemFromCart, cart } = useCart()
 
-  const handleOnClick = (product) => {
-    console.log('product', product)
-    addToCart(product)
+  const handleOnClick = (product, productIsInCart) => {
+    if (productIsInCart) {
+      removeItemFromCart(product)
+    } else {
+      addToCart(product)
+    }
   }
 
   const checkIfProudctIsInCart = product => {
@@ -23,17 +26,22 @@ export default function Products ({ products }) {
             return (
               <li key={product.id}>
                 <img src={product.thumbnail} alt={product.title} />
-                <div>
-                  <strong>{product.title}</strong> - ${product.price}
-                </div>
-                <div>
-                  <button className={!productIsInCart ? '' : 'remove-from-cart-icon'} onClick={() => handleOnClick(product)}>
-                    {
-                     productIsInCart
-                       ? <RemoveFromCartIcon />
-                       : <AddToCartIcon />
-                    }
-                  </button>
+                <div className='title-and-addRemove-button'>
+                  <div>
+                    <strong>{product.title}</strong> - ${product.price}
+                  </div>
+                  <div>
+                    <button
+                      className={!productIsInCart ? 'add-to-cart' : 'remove-from-cart'}
+                      onClick={() => handleOnClick(product, productIsInCart)}
+                    >
+                      {
+                      productIsInCart
+                        ? <RemoveFromCartIcon />
+                        : <AddToCartIcon />
+                      }
+                    </button>
+                  </div>
                 </div>
               </li>
             )

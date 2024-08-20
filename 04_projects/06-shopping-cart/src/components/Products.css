@@ -29,6 +29,11 @@
   padding: 1rem;
 }
 
+.title-and-addRemove-button {
+  display: flex;
+  flex-direction: row;
+}
+
 .products h3 {
   margin: 0;
 }
@@ -47,6 +52,10 @@
   background: #fff;
 }
 
-.remove-from-cart-icon {
+.remove-from-cart {
   background-color: red;
+}
+
+.add-to-cart {
+  background-color: #09f;
 }
