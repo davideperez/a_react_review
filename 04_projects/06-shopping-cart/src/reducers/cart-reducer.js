@@ -1,3 +1,11 @@
+// Actions
+
+export const CART_ACTIONS_TYPES = {
+  ADD_TO_CART: 'ADD_TO_CART',
+  REMOVE_FROM_CART: 'REMOVE_FROM_CART',
+  CLEAR_CART: 'CLEAR_CART'
+}
+
 // Reducer initial state.
 
 export const cartInitialState = []
@@ -8,7 +16,7 @@ export const cartReducer = (state, action) => {
   const { type: actionType, payload: actionPayload } = action // actionPayload es el producto actual.
 
   switch (actionType) {
-    case 'ADD_TO_CART' : {
+    case CART_ACTIONS_TYPES.ADD_TO_CART : {
       const { id } = actionPayload
       const productInCartIndex = state.findIndex(item => item.id === id)
 
@@ -27,13 +35,13 @@ export const cartReducer = (state, action) => {
       ]
     }
 
-    case 'REMOVE_FROM_CART' : {
+    case CART_ACTIONS_TYPES.REMOVE_FROM_CART : {
       const { id } = actionPayload
       const newState = state.filter(item => item.id !== id)
       return newState
     }
 
-    case 'CLEAR_CART' : {
+    case CART_ACTIONS_TYPES.CLEAR_CART : {
       return cartInitialState
     }
   }

@@ -4,7 +4,7 @@ import { Header } from './components/Header'
 // import Footer from './components/Footer'
 import { products as initialProducts } from './mock/products.json'
 import Cart from './components/Cart'
-import { CartProvider } from './context/cart.jsx'
+import { CartProvider } from './context/cart-context.jsx'
 
 function App () {
   const { filterProducts } = useFilters()
