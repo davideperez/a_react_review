@@ -1,13 +1,20 @@
 import { useEffect, useState } from 'react'
 import './App.css'
+import { EVENTS } from './consts'
 
-const NAVIGATION_EVENT = 'pushstate'
+/*
+  In the previous commit we achieved a Single Page Application.
+  But if the user navigates back using the back button on the browser..
+  .. the url changes to the previous one, but the previous page does not load.
+  This is because we are not listening the navigation when it goes back..
+  .. this will be achieved with the 'popstate'.
+*/
 
 function navigate (href) {
   // Cambia la url de la barra de navegacion
   window.history.pushState({}, '', href)
   // Crea un evento personalizado
-  const navigationEvent = new Event(NAVIGATION_EVENT)
+  const navigationEvent = new Event(EVENTS.PUSHSTATE)
   // Se envia el evento
   window.dispatchEvent(navigationEvent)
 }
@@ -29,7 +36,6 @@ function AboutPage () {
       <div>
         <img src='https://images.pexels.com/photos/192136/pexels-photo-192136.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' alt='Foto de un bosque.' />
         <p>Hola me llamo David y estoy creando un Router desde cero.</p>
-
       </div>
       <button onClick={() => navigate('/')}>Ir a la Home</button>
     </>
@@ -44,10 +50,12 @@ function App () {
       setCurrentPath(window.location.pathname)
     }
 
-    window.addEventListener(NAVIGATION_EVENT, onLocationChange)
+    window.addEventListener(EVENTS.PUSHSTATE, onLocationChange)
+    window.addEventListener(EVENTS.POPSTATE, onLocationChange)
 
     return () => {
-      window.removeEventListener(NAVIGATION_EVENT, onLocationChange)
+      window.removeEventListener(EVENTS.PUSHSTATE, onLocationChange)
+      window.removeEventListener(EVENTS.POPSTATE, onLocationChange)
     }
   }, [])
 
