@@ -5,11 +5,9 @@ import HomePage from './pages/Home'
 import AboutPage from './pages/About'
 
 /*
-  In the previous commit we achieved a Single Page Application.
-  But if the user navigates back using the back button on the browser..
-  .. the url changes to the previous one, but the previous page does not load.
-  This is because we are not listening the navigation when it goes back..
-  .. this will be achieved with the 'popstate'.
+  Button not being an anchor, have accesibility issues.
+  No basic menu props on the browser are offered.
+  No open in a new windows possible.
 */
 
 function App () {
