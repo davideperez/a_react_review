@@ -1,12 +1,23 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
+
+const NAVIGATION_EVENT = 'pushstate'
+
+function navigate (href) {
+  // Cambia la url de la barra de navegacion
+  window.history.pushState({}, '', href)
+  // Crea un evento personalizado
+  const navigationEvent = new Event(NAVIGATION_EVENT)
+  // Se envia el evento
+  window.dispatchEvent(navigationEvent)
+}
 
 function HomePage () {
   return (
     <>
       <h1>Home</h1>
       <p>Pagina de ejemplo para crear React Router desde cero.</p>
-      <a href='/about'>Sobre Nosotros</a>
+      <button onClick={() => navigate('/about')}>Sobre Nosotros</button>
     </>
   )
 }
@@ -20,13 +31,25 @@ function AboutPage () {
         <p>Hola me llamo David y estoy creando un Router desde cero.</p>
 
       </div>
-      <a href='/'>Ir a la Home</a>
+      <button onClick={() => navigate('/')}>Ir a la Home</button>
     </>
   )
 }
 
 function App () {
   const [currentPath, setCurrentPath] = useState(window.location.pathname)
+
+  useEffect(() => {
+    const onLocationChange = () => {
+      setCurrentPath(window.location.pathname)
+    }
+
+    window.addEventListener(NAVIGATION_EVENT, onLocationChange)
+
+    return () => {
+      window.removeEventListener(NAVIGATION_EVENT, onLocationChange)
+    }
+  }, [])
 
   return (
     <main>
