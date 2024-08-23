@@ -21,8 +21,28 @@ const UPDATE_STATE_BY_ACTION = {
     const productInCartIndex = state.findIndex(item => item.id === id)
 
     if (productInCartIndex >= 0) {
-      const newState = structuredClone(state)
-      newState[productInCartIndex].quantity += 1
+      // Solucion 1  - con structuredClone ( 👀 La mas legible)
+      // const newState = structuredClone(state)
+      // newState[productInCartIndex].quantity += 1
+
+      // Solucion 2  - con map ( 👶 La mas facil)
+      /* const newState = state.map(item => {
+        if (item.id === id) {
+          return {
+            ...item,
+            quantity: item.quantity + 1
+          }
+        }
+        return item
+      }) */
+
+      // Solucion 3  - con spread operator y slice ( ⚡ La mas rapida )
+      const newState = [
+        ...state.slice(0, productInCartIndex),
+        { ...state[productInCartIndex], quantity: state[productInCartIndex].quantity + 1 },
+        ...state.slice(productInCartIndex + 1)
+      ]
+
       updateLocalStorage(newState)
       return newState
     }
@@ -34,9 +54,7 @@ const UPDATE_STATE_BY_ACTION = {
         quantity: 1
       }
     ]
-
     updateLocalStorage(newState)
-
     return newState
   },
   [CART_ACTIONS_TYPES.REMOVE_FROM_CART]: (state, action) => {
@@ -46,8 +64,8 @@ const UPDATE_STATE_BY_ACTION = {
     return newState
   },
   [CART_ACTIONS_TYPES.CLEAR_CART]: (state, action) => {
-    updateLocalStorage(cartInitialState)
-    return cartInitialState
+    updateLocalStorage([])
+    return []
   }
 }
 
