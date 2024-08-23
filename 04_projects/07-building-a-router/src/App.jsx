@@ -10,7 +10,18 @@ import AboutPage from './pages/About'
   No open in a new windows possible.
 */
 
-function App () {
+const routes = [
+  {
+    path: '/',
+    Component: HomePage
+  },
+  {
+    path: '/about',
+    Component: AboutPage
+  }
+]
+
+function Router ({ routes = [], defaultComponent: DefaultComponent = () => <h1>404</h1> }) {
   const [currentPath, setCurrentPath] = useState(window.location.pathname)
 
   useEffect(() => {
@@ -27,10 +38,15 @@ function App () {
     }
   }, [])
 
+  const Page = routes.find(({ path }) => path === currentPath)?.Component
+
+  return Page ? <Page /> : <DefaultComponent />
+}
+
+function App () {
   return (
     <main>
-      {currentPath === '/' && <HomePage />}
-      {currentPath === '/about' && <AboutPage />}
+      <Router routes={routes} />
     </main>
   )
 }
