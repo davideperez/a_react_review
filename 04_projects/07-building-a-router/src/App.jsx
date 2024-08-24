@@ -4,6 +4,7 @@ import AboutPage from './pages/About'
 
 import { Router } from './Router'
 import Page404 from './pages/404'
+import SearchPage from './pages/Search'
 
 /*
   Button not being an anchor, have accesibility issues.
@@ -19,6 +20,10 @@ const routes = [
   {
     path: '/about',
     Component: AboutPage
+  },
+  {
+    path: '/search/:query',
+    Component: SearchPage
   }
 ]
 
