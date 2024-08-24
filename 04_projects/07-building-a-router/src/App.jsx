@@ -5,6 +5,7 @@ import AboutPage from './pages/About'
 import { Router } from './Router'
 import Page404 from './pages/404'
 import SearchPage from './pages/Search'
+import Route from './pages/Route'
 
 /*
   Button not being an anchor, have accesibility issues.
@@ -12,15 +13,7 @@ import SearchPage from './pages/Search'
   No open in a new windows possible.
 */
 
-const routes = [
-  {
-    path: '/',
-    Component: HomePage
-  },
-  {
-    path: '/about',
-    Component: AboutPage
-  },
+const appRoutes = [
   {
     path: '/search/:query',
     Component: SearchPage
@@ -30,7 +23,10 @@ const routes = [
 function App () {
   return (
     <main>
-      <Router routes={routes} defaultComponent={Page404} />
+      <Router routes={appRoutes} defaultComponent={Page404}>
+        <Route path='/' Component={HomePage} />
+        <Route path='/about' Component={AboutPage} />
+      </Router>
     </main>
   )
 }
