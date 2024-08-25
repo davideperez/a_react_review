@@ -13,12 +13,12 @@ const i18n = {
   }
 }
 
-const useI18n = (lang) => {
+const getI18n = (lang) => {
   return i18n[lang] || i18n.en
 }
 
 export default function AboutPage ({ routeParams }) {
-  const i18n = useI18n(routeParams.lang ?? 'es')
+  const i18n = getI18n(routeParams.lang ?? 'es')
   return (
     <>
       <h1>{i18n.title}</h1>

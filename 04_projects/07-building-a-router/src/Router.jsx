@@ -32,10 +32,11 @@ export function Router ({ children, routes = [], defaultComponent: DefaultCompon
 
     return isRoute ? props : null
   })
+
   // Recibe: El array de rutas de la app pasada que se le paso por props,
   // y el array de rutas de l/os children/s.
   // Devuelve: Un array que concatena los dos array anteriores.
-  const routesToUse = routes.concat(routesFromChildren)
+  const routesToUse = routes.concat(routesFromChildren).filter(Boolean)
 
   // DESCIPTION TO COMPLETE
   const Page = routesToUse.find(({ path }) => {
