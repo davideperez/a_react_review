@@ -1,16 +1,19 @@
 import { useState, useEffect, Children } from 'react'
-import { EVENTS } from './consts'
+import { getCurrentPath } from './utils/getCurrentPath'
+import { EVENTS } from './utils/consts'
 import { match } from 'path-to-regexp'
 
 // Recibe una ruta string, devuelve un componente que sera rendereado.
 export function Router ({ children, routes = [], defaultComponent: DefaultComponent = () => <h1>404</h1> }) { // NUEVA URL
+  console.log('children: ', children)
+
   // URL ACTUAL
-  const [currentPath, setCurrentPath] = useState(window.location.pathname)
+  const [currentPath, setCurrentPath] = useState(getCurrentPath())
 
   //
   useEffect(() => {
     const onLocationChange = () => {
-      setCurrentPath(window.location.pathname)
+      setCurrentPath(getCurrentPath())
     }
 
     window.addEventListener(EVENTS.PUSHSTATE, onLocationChange)
@@ -27,12 +30,12 @@ export function Router ({ children, routes = [], defaultComponent: DefaultCompon
   // Recibe: los los <Route > components que creamos y que son hijos de este Router component.
   // Devuelve: un array de objetos con su path property y component property.
   const routesFromChildren = Children.map(children, ({ props, type }) => {
+    // console.log('children: ', children)
     const { name } = type
     const isRoute = name === 'Route'
 
     return isRoute ? props : null
   })
-
   // Recibe: El array de rutas de la app pasada que se le paso por props,
   // y el array de rutas de l/os children/s.
   // Devuelve: Un array que concatena los dos array anteriores.
@@ -54,7 +57,7 @@ export function Router ({ children, routes = [], defaultComponent: DefaultCompon
     // y que hemos extraidos con path-to-regexp
     // por ejemplo, si la ruta es /search/:query
     // y la url es /search/javascript
-    // matched.params.query === 'javascript'
+    // matched.params.query === 'javascript'.
     routeParams = matched.params // En este params tendremos por ejemplo: { query: 'javascript' }
     return true
   })?.Component
