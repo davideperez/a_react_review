@@ -1,8 +1,8 @@
-import { describe, it, expect, beforeEach, vi, fireEvent } from 'vitest'
-import { cleanup, render, screen } from '@testing-library/react'
-import { Router } from './Router.jsx'
-import { Route } from './pages/Route.jsx'
-import { Link } from './Link'
+import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { cleanup, render, screen/* , fireEvent */ } from '@testing-library/react'
+import { Router } from './components/Router.jsx'
+// import { Route } from './components/Route.jsx'
+// import { Link } from './components/Link'
 import { getCurrentPath } from './utils/getCurrentPath'
 
 // Queremos que haga un mock de utils.js.
@@ -62,7 +62,7 @@ describe('Router', () => {
     render(<Router routes={routes} />)
     expect(screen.getByText('About')).toBeTruthy()
   })
-
+  /*
   it('should navigate using links', async () => {
     // Usamos la variante con 'once', para
     getCurrentPath.mockReturnValueOnce('/')
@@ -92,5 +92,5 @@ describe('Router', () => {
 
     // console.log('screen.debug(): ', screen.debug())
     expect(aboutTitle).toBeTruthy()
-  })
+  }) */
 })

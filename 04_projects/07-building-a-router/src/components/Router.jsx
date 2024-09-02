@@ -1,7 +1,7 @@
+import { EVENTS } from '../utils/consts'
 import { useState, useEffect, Children } from 'react'
-import { getCurrentPath } from './utils/getCurrentPath'
-import { EVENTS } from './utils/consts'
 import { match } from 'path-to-regexp'
+import { getCurrentPath } from '../utils/getCurrentPath'
 
 // Recibe una ruta string, devuelve un componente que sera rendereado.
 export function Router ({ children, routes = [], defaultComponent: DefaultComponent = () => <h1>404</h1> }) { // NUEVA URL
@@ -31,6 +31,7 @@ export function Router ({ children, routes = [], defaultComponent: DefaultCompon
   // Devuelve: un array de objetos con su path property y component property.
   const routesFromChildren = Children.map(children, ({ props, type }) => {
     // console.log('children: ', children)
+    // if (!type) return null
     const { name } = type
     const isRoute = name === 'Route'
 

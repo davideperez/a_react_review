@@ -1,4 +1,4 @@
-import { EVENTS, BUTTON } from './utils/consts'
+import { EVENTS, BUTTON } from '../utils/consts'
 
 export function navigate (href) {
   // Cambia la url de la barra de navegacion
@@ -28,3 +28,4 @@ export function Link ({ target, to, ...props }) {
 
   return <a onClick={handleClick} target={target} href={to} {...props} /> // El children pasa en props. (props.children)
 }
+// TODO

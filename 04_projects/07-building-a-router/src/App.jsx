@@ -1,7 +1,7 @@
 import { lazy, Suspense } from 'react'
 import './App.css'
-import { Router } from './Router'
-import Route from './pages/Route'
+import { Router } from './components/Router.jsx'
+import Route from './components/Route.jsx'
 
 // import HomePage from './pages/Home' // Ruta reemplazada por lazy loading.
 import Page404 from './pages/404'
@@ -25,7 +25,7 @@ const LazyAboutPage = lazy(() => import('./pages/About.jsx'))
   No basic menu props on the browser are offered.
   No open in a new windows possible.
 */
-
+// TODO
 const appRoutes = [
   {
     path: '/:lang/about',

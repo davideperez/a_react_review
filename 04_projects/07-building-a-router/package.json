@@ -1,17 +1,28 @@
 {
   "name": "07-building-a-router",
-  "private": true,
-  "version": "0.0.0",
+  "version": "0.0.2",
   "type": "module",
+  "main": "lib/index.js", 
+  "module": "lib/index.js",
+  "exports": {
+    ".": {
+      "import": "./lib/index.js",
+      "require": "./lib/index.js"
+    },
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "prepare": "swc src/components src/utils src/index.jsx -d lib",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest"
   },
   "dependencies": {
-    "path-to-regexp": "7.1.0",
+    "path-to-regexp": "7.1.0"
+  },
+  "peerDependencies": {
     "react": "18.3.1",
     "react-dom": "18.3.1"
   },
